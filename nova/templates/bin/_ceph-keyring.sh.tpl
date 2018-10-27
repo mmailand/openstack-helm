@@ -29,9 +29,8 @@ EOF
 if ! [ "x${CEPH_CINDER_USER}" == "xadmin"]; then
   #NOTE(Portdirect): Determine proper privs to assign keyring
   ceph auth get-or-create client.${CEPH_CINDER_USER} \
-    mon "allow *" \
-    osd "allow *" \
-    mgr "allow *" \
+    mon "profile rbd" \
+    osd "profile rbd" \
     -o ${KEYRING}
 
   rm -f /etc/ceph/ceph.client.admin.keyring
