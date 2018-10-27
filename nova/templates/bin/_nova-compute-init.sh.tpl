@@ -27,7 +27,7 @@ chown ${NOVA_USER_UID} /var/lib/nova /var/lib/nova/instances
 migration_interface="{{- .Values.conf.libvirt.live_migration_interface -}}"
 if [[ -n $migration_interface ]]; then
     # determine ip dynamically based on interface provided
-    migration_address=$(ip a s $migration_interface | grep 'inet ' | awk '{print $2}' | awk -F "/" '{print $1}')
+    migration_address=$(ip a s $migration_interface | grep 'inet ' | awk '{print $2}' | awk -F "/" 'NR==1 {print $1}')
 fi
 
 touch /tmp/pod-shared/nova-libvirt.conf
